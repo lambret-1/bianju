@@ -64,8 +64,6 @@ Map<String, dynamic> jsonMap(Map<String, dynamic> json, String key) {
 List<Map<String, dynamic>> jsonMapList(Map<String, dynamic> json, String key) {
   final value = json[key];
   if (value is! List) return <Map<String, dynamic>>[];
-  return value
-      .whereType<Map>()
-      .map((e) => Map<String, dynamic>.from(e))
-      .toList(growable: false);
+  // 返回可增长列表：schema 迁移需要往角色库追加自动补建的档案
+  return value.whereType<Map>().map((e) => Map<String, dynamic>.from(e)).toList();
 }
